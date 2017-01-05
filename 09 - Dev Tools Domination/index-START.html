@@ -21,25 +21,70 @@
 
     // Interpolated
 
+    console.log('I am an interpolated %s string', '💩');
+
     // Styled
+    
+    console.log(`%c I'm sooo Fresh!`, `font-size: 16px; font-family: Roboto; color: tomato; letter-spacing: 1px`);
 
     // warning!
+    
+    console.warn('Warning Will Robinson')
 
     // Error :|
 
+    if (document.querySelector('p').style.color === '#BADA55') {
+      console.error('This color is just ugly');
+    }
+
     // Info
 
+    console.info('Elephants are the only mammals that cannot jump');
+
     // Testing
+    console.assert(dogs.length === 1, 'there are 2 dogs!');
 
     // clearing
 
+    //console.clear() <-- Don't be a dick
+
     // Viewing DOM Elements
+
+    const p = document.querySelector('p');
+    console.log(p);
+    console.dir(p);
 
     // Grouping together
 
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+        console.log(`This is ${dog.name}, they are ${dog.age} years old`);
+        console.log(`That is equal to ${dog.age * 7} in dog years, whoa!`);
+      console.groupEnd(`${dog.name}`);
+    })
+
     // counting
 
+    console.count('Dracula');
+    console.count('Dracula');
+    console.count('Frankenstein');
+    console.count('Dracula');
+    console.count('Frankenstein');
+    console.count('Dracula');
+    console.count('Dracula');
+    console.count('Frankenstein');
+    console.count('Dracula');
+    console.count('Frankenstein');
+    
     // timing
+
+    console.time('data fetch');
+    fetch('https://api.github.com/users/C-mccullo')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('data fetch');
+        console.log(data);
+      });
 
   </script>
 </body>
