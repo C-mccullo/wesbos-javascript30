@@ -39,7 +39,31 @@
 
 <button></button>
 <script>
+  const divs = document.querySelectorAll('div');
 
+  function logText(e) {
+    // e.stopPropogation();
+    console.log(this.classList.value);
+  }
+
+  // normally, this event will also fire because of the bubbling.
+  document.body.addEventListener('click', logText);
+
+  // when any one of the divs are clicked, this will console log the value of the div 'clicked'
+  // as well as all of the divs the 'clicked' one is nested in because of bubbling. 
+  divs.forEach(div => div.addEventListener('click', logText, {
+    // capture is inherently false, when event goes down through elements this is called capturing
+    capture: false
+    // once will listen for the click and then unbind itself from running the function on event in the future. 
+    // once: true
+  }));
+
+  button.addEventListener('click', () => {
+    console.log('how many clicks does it take to get to the center?');
+  }, {
+    once: true
+  })
+  
 </script>
 </body>
 </html>
