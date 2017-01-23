@@ -35,6 +35,46 @@
   const options = document.querySelectorAll('[type="range"], [name="text"]');
   const speakButton = document.querySelector('#speak');
   const stopButton = document.querySelector('#stop');
+  msg.text = document.querySelector('[name="text"]').value;
+
+  function populateVoices() {
+    voices = this.getVoices();
+    console.dir(voices);
+    voicesDropdown.innerHTML = voices
+      .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`)
+      .join('');
+  }
+
+  function setVoice() {
+    msg.voice = voices.find(voice => voice.name === this.value);
+  }
+  
+  function toggle(startOver = true) {
+    // stops the speech synthesis that is currently running
+    speechSynthesis.cancel();
+    if (startOver) {
+      speechSynthesis.speak(msg);
+    }
+  }
+
+  function setOption() {
+    console.log(this.name, this.value);
+    msg[this.name] = this.value;
+    toggle();
+  }
+
+  // speechSynthesis is the entry point to using the 
+  // Web Speech API speech synthesis functionality of the browser.
+  window.speechSynthesis.addEventListener('voiceschanged', populateVoices);
+  voicesDropdown.addEventListener('change', setVoice);
+
+  options.forEach(option => option.addEventListener('change', setOption));
+  speakButton.addEventListener('click', toggle);
+
+  stopButton.addEventListener('click', ()=> toggle(false));
+  // OR USE BIND
+  //stopButton.addEventListener('click', toggle.bind(null, false));
+
 </script>
 
 </body>

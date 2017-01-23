@@ -55,6 +55,19 @@
 
 <script>
 
+  const nav = document.querySelector('#main');
+  const topOfNav = nav.offsetTop;
+
+  function fixNav() {
+    if (window.scrollY >= topOfNav) {
+      document.body.classList.add('fixed-nav');
+      // when nav becomes fixed at scroll = offsetTop, it will not take up space in the document body itself.
+      // to stop document body from appearing janky paddingTop is added top accommodate for the nav  
+      document.body.style.paddingTop = nav.offsetHeight + 'px';
+    }
+  }
+
+  window.addEventListener('scroll', fixNav);
 </script>
 
 </body>

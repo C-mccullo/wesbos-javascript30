@@ -26,7 +26,34 @@
     </div>
 
   <script>
-    // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+    
+    const triggers = document.querySelectorAll('a');
+    const highlight = document.createElement('span');
+    highlight.classList.add('highlight');
+    document.body.append(highlight);
+
+    function highlightLink() {
+      console.log('Highlight!!');
+      console.dir(this);
+      const linkCoords = this.getBoundingClientRect();
+      console.log(linkCoords);
+      // 🔥🔥🔥 getBoundingClientRect() method returns the size of an element 🔥🔥🔥
+      // 🔥🔥🔥 and its position of relative to the viewport 🔥🔥🔥
+      const coords = {
+        width: linkCoords.width,
+        height: linkCoords.height,
+        // compensate for the offset of the users scroll between a tags 
+        top: linkCoords.top + window.scrollY,
+        left: linkCoords.left + window.scrollX
+      }
+
+      highlight.style.width = `${coords.width}px`;
+      highlight.style.height = `${coords.height}px`;
+      highlight.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
+    }
+    // mounseenter - similar to mouseover expect that it does not bubble. Event is not triggered when pointer is moved from one of its descendants physical space to its own physical space. 
+    triggers.forEach(a => a.addEventListener('mouseenter', highlightLink));
+
   </script>
 </body>
 </html>

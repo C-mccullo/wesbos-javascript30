@@ -182,6 +182,27 @@
     </li>
 
 <script>
+
+  //convert timeNodes node list to array
+  const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
+
+  const seconds = timeNodes
+    .map(node => node.dataset.time)
+    .map(timeCode => {
+      // splits the minutes and seconds into two different arrays THEN turns the strings into numbers
+      const [mins, secs] = timeCode.split(':').map( (str) => parseFloat(str) );
+      return (mins * 60) + secs; 
+    })
+    .reduce((total, vidSeconds) => total + vidSeconds);
+
+    let secondsLeft = seconds; 
+    const hours = Math.floor(secondsLeft / 3600);
+    // the modulo shows the remainder left over after dividing into a number
+    secondsLeft = secondsLeft % 3600;
+    const mins = Math.floor(secondsLeft / 60);
+    secondsLeft = secondsLeft % 60;
+    console.log(hours, mins, secondsLeft);
+
 </script>
 </body>
 </html>

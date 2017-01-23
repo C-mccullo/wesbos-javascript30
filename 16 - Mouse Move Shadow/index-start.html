@@ -31,6 +31,39 @@
   </style>
 
 <script>
+
+  const hero = document.querySelector('.hero');
+  const heroText = hero.querySelector('h1');
+  const stretch = 100; // equals 100px;
+  
+  function shadow(e) {
+    // const width = hero.offSetWidth;
+    // const height = hero.offSetHeight;
+    // 🔥 ES6 Style 🔥
+    const { offsetWidth: width, offsetHeight: height } = hero;
+    let { offsetX: x, offsetY: y } = e;
+    
+    // the event listener will track the offset of the mouse on the elements children when mouse over
+    // this can be fixed by adding offset on each element to the offset of stretch
+    if (this !== e.target) {
+      x = x + e.target.offsetLeft;
+      y = y + e.target.offsetTop;
+    }
+
+    const xWalk = Math.round((x / width * stretch) - (stretch / 2)); //// +50px to -50px;
+    const yWalk = Math.round((y / height * stretch) - (stretch / 2));
+    console.log(xWalk, yWalk);
+
+    heroText.style.textShadow = `
+      ${xWalk}px ${yWalk}px 0 rgba(0, 255, 255, 0.8),
+      ${xWalk * 1.4}px ${yWalk * 1.4}px 0 rgba(255, 0, 255, 0.8),
+      ${xWalk * 1.7}px ${yWalk * 1.7}px 0 rgba(255, 255, 0, 0.7),
+      ${xWalk * 2.2}px ${yWalk * 2.2}px 0 rgba(0, 0, 255, 0.6)
+    `;
+  }
+
+  hero.addEventListener('mousemove', shadow);
+
 </script>
 </body>
 </html>
