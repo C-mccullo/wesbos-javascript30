@@ -32,8 +32,8 @@
     highlight.classList.add('highlight');
     document.body.append(highlight);
 
-    function highlightLink() {
-      console.log('Highlight!!');
+    function highlightLink(e) {
+      e.preventDefault();
       console.dir(this);
       const linkCoords = this.getBoundingClientRect();
       console.log(linkCoords);
@@ -52,7 +52,7 @@
       highlight.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
     }
     // mounseenter - similar to mouseover expect that it does not bubble. Event is not triggered when pointer is moved from one of its descendants physical space to its own physical space. 
-    triggers.forEach(a => a.addEventListener('mouseenter', highlightLink));
+    triggers.forEach(a => a.addEventListener('click', highlightLink));
 
   </script>
 </body>
